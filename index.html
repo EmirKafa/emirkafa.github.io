@@ -1,106 +1,614 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Für Nur</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+HU:wght@100..400&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C&M Pharma Biotech – Arzneimittel-Großhandel</title>
+    <meta name="description" content="C&M – Spezialisierter Großhandel für Arzneimittel: Import, Lagerung, Herstellung, Vertrieb, Export & Medizinalcannabis (MedCanG)." />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root{
+            --brand:#4a7032;            /* exakt wie im Logo */
+            --brand-600:#3e622a;
+            --brand-100:#eaf3e4;
+            --brand-900:#233619;
+            --nav-glass: rgba(17,26,16,.35);
+            --nav-border: rgba(255,255,255,.16);
+            --bs-primary:var(--brand);
+            --bs-primary-rgb:74,112,50;
+            --hero-dark: rgba(10,16,12,.68);
+            --hero-grad: linear-gradient(90deg, rgba(10,16,12,.82) 0%, rgba(10,16,12,.52) 45%, rgba(10,16,12,.22) 100%);
+        }
 
+        html{ scroll-behavior:smooth; }
+
+        /* Topbar */
+        .topbar{
+            background:linear-gradient(90deg,var(--brand-900), var(--brand));
+            color:#d8ecd0; font-size:.9rem;
+        }
+        .topbar a{ color:#e9ffe0; text-decoration:none; }
+
+        /* Typo / Utilities */
+        .section-title{ font-weight:800; }
+        .rounded-2xl{ border-radius:1.25rem; }
+        .shadow-soft{ box-shadow:0 10px 30px rgba(0,0,0,.08); }
+        .fw-black{ font-weight:900; }
+        .text-white-75{ color:rgba(255,255,255,.75)!important; }
+
+        /* Cards */
+        .feature-card{
+            border:1px solid rgba(0,0,0,.06);
+            box-shadow:0 6px 24px rgba(0,0,0,.06);
+        }
+
+        /* Buttons */
+        .btn-primary{
+            --bs-btn-bg:var(--brand);
+            --bs-btn-border-color:var(--brand);
+            --bs-btn-hover-bg:var(--brand-600);
+            --bs-btn-hover-border-color:var(--brand-600);
+        }
+        .btn-outline-primary{
+            --bs-btn-color:var(--brand);
+            --bs-btn-border-color:var(--brand);
+            --bs-btn-hover-bg:var(--brand);
+            --bs-btn-hover-border-color:var(--brand);
+            --bs-btn-hover-color:#fff;
+        }
+        .btn-outline-light{
+            --bs-btn-hover-bg:#fff;
+            --bs-btn-hover-color:#000;
+        }
+
+        /* Footer */
+        footer{ background:#0b0f0a; color:#cad7c3; }
+        footer a{ color:#e9ffe0; }
+
+        /* HERO – modern */
+        .hero-modern{ color:#fff; }
+        .hero-modern .hero-bg{ position:absolute; inset:0; }
+        .hero-modern .hero-bg img{
+            width:100%; height:100%; object-fit:cover;
+            filter:saturate(110%) contrast(105%);
+        }
+        .hero-modern .hero-overlay{
+            position:absolute; inset:0;
+            background: var(--hero-grad);
+            backdrop-filter: blur(1.2px) saturate(115%);
+        }
+        .hero-modern .hero-lines{
+            position:absolute; inset:0; pointer-events:none; mix-blend-mode:overlay;
+        }
+        .brand-hero{
+            font-size: clamp(3rem, 7vw + 1rem, 8rem); /* riesig, responsiv */
+            letter-spacing:.02em;
+            text-shadow: 0 6px 24px rgba(0,0,0,.45);
+        }
+        .badge-glass{
+            display:inline-flex; align-items:center; gap:.4rem;
+            background:rgba(255,255,255,.12); color:#fff;
+            border:1px solid rgba(255,255,255,.25);
+            padding:.5rem .75rem; border-radius:999px;
+            backdrop-filter:blur(8px);
+        }
+        .chip{
+            display:inline-flex; align-items:center; gap:.35rem;
+            background:rgba(255,255,255,.14); color:#fff;
+            border:1px solid rgba(255,255,255,.22);
+            padding:.45rem .75rem; border-radius:999px;
+            font-size:.95rem; backdrop-filter:blur(6px);
+        }
+
+        /* Scroll hint */
+        .scroll-hint{
+            position:absolute; left:50%; bottom:1.25rem; transform:translateX(-50%);
+            width:46px; height:46px; border-radius:50%;
+            display:grid; place-items:center; background:rgba(255,255,255,.14);
+            border:1px solid rgba(255,255,255,.3); color:#fff;
+            backdrop-filter: blur(6px); cursor:pointer;
+            transition: transform .2s ease;
+        }
+        .scroll-hint:hover{ transform:translateX(-50%) translateY(-2px); }
+        .scroll-hint i{ animation: bounce 2s infinite; font-size:1.1rem; }
+        @keyframes bounce{
+            0%,20%,50%,80%,100%{ transform:translateY(0) }
+            40%{ transform:translateY(-6px) }
+            60%{ transform:translateY(-3px) }
+        }
+
+        /* Anker-Offset für sticky Navbar */
+        :target{ scroll-margin-top:96px; }
+
+        /* Utilitybar */
+        .utilbar{
+            background: linear-gradient(90deg, #233619, var(--brand));
+            color:#e7f5e1;
+        }
+
+        .nav-glass {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            background: rgba(26, 43, 21, 0.55); /* dunkles Glasgrün statt Grau */
+            backdrop-filter: blur(12px) saturate(160%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.25s ease;
+        }
+
+        .nav-glass.scrolled {
+            background: var(--brand); /* sattes Grün beim Scrollen */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            border-bottom-color: rgba(0, 0, 0, 0.15);
+            padding-top: .35rem !important;
+            padding-bottom: .35rem !important;
+        }
+
+        .nav-glass .nav-link,
+        .nav-glass .navbar-brand,
+        .nav-glass .navbar-toggler {
+            color: #fff !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-glass.scrolled .nav-link,
+        .nav-glass.scrolled .navbar-brand,
+        .nav-glass.scrolled .navbar-toggler {
+            color: var(--brand-900) !important; /* dunkles Grün */
+        }
+
+        .nav-glass.scrolled .nav-link:hover,
+        .nav-glass.scrolled .nav-link.active {
+            color: var(--brand) !important;
+        }
+
+        .nav-glass.scrolled .nav-link::after {
+            background: var(--brand);
+        }
+
+        .nav-glass.scrolled .navbar-toggler-icon {
+            filter: invert(0) brightness(0.3);
+        }
+
+        /* Offcanvas – große Touch-Ziele */
+        .offcanvas .nav-link{
+            padding:.75rem 0;
+            border-bottom:1px solid rgba(255,255,255,.08);
+        }
+        .offcanvas .nav-link:last-of-type{ border-bottom:0; }
+
+        /* Motion-Preference: Animationen reduzieren */
+        @media (prefers-reduced-motion: reduce){
+            .scroll-hint i{ animation:none; }
+            .navbar .nav-link::after{ transition:none; }
+        }
+    </style>
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-<style>
-    html {
-        width: 100%;
-        height: 100%;
-    }
-
-    body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #ddcad9;
-        background-image: linear-gradient(315deg, #ddcad9 0%, #d1b1cb 74%);
-    }
-
-
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .button-1 {
-        background-color: #EA4C89;
-        border-radius: 8px;
-        border-style: none;
-        box-sizing: border-box;
-        color: #FFFFFF;
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        height: 40px;
-        line-height: 20px;
-        list-style: none;
-        margin: 0;
-        outline: none;
-        padding: 10px 16px;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        transition: color 100ms;
-        vertical-align: baseline;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
-
-    h2 {
-        font-family: "Playwrite HU", cursive;
-        font-optical-sizing: auto;
-        font-style: normal;
-        color: #fff;
-        text-align: center;
-        margin: 0 5px;
-        margin-top: 100px;
-    }
-
-    .button-1:hover,
-    .button-1:focus {
-        background-color: #F082AC;
-    }
-</style>
-
 <body>
-    <div class="container">
-        <h2 style="font-size: 30px;">Ein Geschenk für dich Nur</h2>
-        <button class="button-1">Geschenk erhalten</button>
-
-        <dotlottie-player id="lottie-player"
-            src="https://lottie.host/67851fb4-8a34-4b4b-a11e-8875aa6405f7/ZsWflmeNDN.json" background="transparent"
-            speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal"></dotlottie-player>
+<header class="site-header">
+    <!-- Utilitybar -->
+    <div class="utilbar d-none d-lg-block">
+        <div class="container d-flex justify-content-between align-items-center py-1 small">
+            <div class="d-flex gap-4">
+                <a href="mailto:info@cundm-arzneimittel.de" class="link-light text-decoration-none">
+                    <i class="bi bi-envelope me-1"></i> info@cundm-arzneimittel.de
+                </a>
+                <a href="tel:+4917632603217" class="link-light text-decoration-none">
+                    <i class="bi bi-telephone me-1"></i> +49 176 32603217
+                </a>
+            </div>
+            <div class="d-flex gap-3 opacity-75">
+                <a href="#" aria-label="LinkedIn" class="link-light"><i class="bi bi-linkedin"></i></a>
+                <a href="#" aria-label="Instagram" class="link-light"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="X" class="link-light"><i class="bi bi-twitter-x"></i></a>
+            </div>
+        </div>
     </div>
 
-</body>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-<script>
-    $('.button-1').click(function () {
-        $('#lottie-player').get(0).play();
-    });
+    <!-- Main nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-glass py-2">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+                <img src="assets/img/cundm-logo.png" alt="C&M Logo" height="38">
+            </a>
 
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainOffcanvas" aria-controls="mainOffcanvas" aria-label="Menü öffnen">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-none d-lg-flex">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Über uns</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#philosophy">Philosophie</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#partners">Partner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cannabis">Cannabis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quality">Qualität</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary btn-sm rounded-pill px-3" href="#contact">
+                            <i class="bi bi-chat-dots me-1"></i> Anfrage
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offcanvas (Mobile) -->
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mainOffcanvas" aria-labelledby="mainOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mainOffcanvasLabel">Menü</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Schließen"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column gap-2">
+            <a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Home</a>
+            <a class="nav-link" href="#about" data-bs-dismiss="offcanvas">Über uns</a>
+            <a class="nav-link" href="#philosophy" data-bs-dismiss="offcanvas">Philosophie</a>
+            <a class="nav-link" href="#partners" data-bs-dismiss="offcanvas">Partner</a>
+            <a class="nav-link" href="#cannabis" data-bs-dismiss="offcanvas">Cannabis</a>
+            <a class="nav-link" href="#quality" data-bs-dismiss="offcanvas">Qualität</a>
+            <a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">Kontakt</a>
+            <hr class="border-secondary my-3">
+            <a class="btn btn-primary w-100" href="#contact" data-bs-dismiss="offcanvas"><i class="bi bi-chat-dots me-1"></i> Anfrage stellen</a>
+            <div class="mt-auto pt-3 small opacity-75">
+                <a href="mailto:info@cundm-arzneimittel.de" class="d-block link-light text-decoration-none"><i class="bi bi-envelope me-1"></i> info@cundm-arzneimittel.de</a>
+                <a href="tel:+4917632603217" class="d-block link-light text-decoration-none"><i class="bi bi-telephone me-1"></i> +49 176 32603217</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<header id="home" class="hero-modern d-flex align-items-center min-vh-100 position-relative overflow-hidden">
+    <!-- Background -->
+    <div class="hero-bg">
+        <img src="assets/img/rick-proctor-PGc9Vid8O24-unsplash.jpg" alt="Medizinisches Cannabis – pharmazeutische Qualität" />
+        <!-- Dark/duotone overlay -->
+        <div class="hero-overlay"></div>
+        <!-- Topographic lines -->
+        <svg class="hero-lines" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1.2">
+                <path d="M0,650 C200,620 350,680 550,640 C800,590 1000,700 1300,640 C1450,610 1600,660 1600,660" />
+                <path d="M0,720 C250,700 420,760 650,720 C900,680 1100,770 1400,720 C1500,700 1600,740 1600,740" />
+                <path d="M0,780 C220,760 380,820 580,780 C820,730 1030,820 1320,780 C1470,760 1600,800 1600,800" />
+                <path d="M0,840 C260,820 440,880 680,840 C920,800 1140,880 1420,840 C1520,820 1600,860 1600,860" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="container position-relative z-2">
+        <div class="row">
+            <div class="col-12 col-lg-11 col-xxl-10" data-aos="fade-up">
+        <span class="badge badge-glass mb-3">
+          <i class="bi bi-shield-check me-1"></i> AMG • MedCanG • GDP • GMP
+        </span>
+
+                <!-- mega headline -->
+                <h1 class="display-1 fw-black lh-1 mb-3 brand-hero">
+                    C&amp;M
+                </h1>
+                <p class="h2 fw-semibold text-white-75 mb-4">Großhändler für Medizinische Cannabis- und Arzneimittelprodukte</p>
+
+
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="#contact" class="btn btn-primary btn-lg"><i class="bi bi-chat-dots me-2"></i>Anfrage stellen</a>
+                    <a href="#quality" class="btn btn-outline-light btn-lg"><i class="bi bi-patch-check me-2"></i>Qualität</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <button class="scroll-hint" aria-label="Weiter scrollen" onclick="window.scrollTo({ top: window.innerHeight, behavior:'smooth' })">
+        <i class="bi bi-chevron-double-down"></i>
+    </button>
+</header>
+
+
+
+<!-- Über uns -->
+<section data-aos="fade-up" id="about" class="py-5 position-relative" style="background-color:#f6faf5;">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-lg-2">
+                <div class="rounded-2xl overflow-hidden shadow-soft border bg-white">
+                    <img src="https://images.unsplash.com/photo-1573407290155-384a1d194778?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470"
+                         alt="Pharma Logistik Köln" class="w-100 h-100 object-fit-cover">
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <p class="eyebrow text-uppercase fw-semibold text-primary mb-2">Über uns</p>
+                <h2 class="section-title h1 mb-3">Spezialisierter Großhandel für Arzneimittel</h2>
+                <p>Die C&M GmbH wurde im Oktober 2022 in Köln gegründet …</p>
+                <p>Wir sind lizenzierter Arzneimittelgroßhändler nach § 52a AMG und besitzen eine Erlaubnis gemäß § 4 MedCanG.</p>
+                <a href="#quality" class="btn btn-outline-primary mt-3">Unsere Qualität ansehen</a>
+            </div>
+        </div>
+    </div>
+    <div class="position-absolute top-0 start-0 w-100" style="height:80px;background:linear-gradient(to bottom,#fff,transparent)"></div>
+</section>
+
+<!-- Philosophie -->
+<section data-aos="fade-up" id="philosophy" class="py-5" style="background-color:#ffffff;">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="p-4 bg-white rounded-2xl border shadow-soft">
+                    <h2 class="section-title h1 mb-3 text-primary">Unsere Philosophie</h2>
+                    <p>Unser Ziel ist es, Patienten dauerhaft mit hochqualitativen natürlichen und medizinischen Produkten zu versorgen …</p>
+                    <p>Wir wählen unsere Hersteller nach strengsten Qualitäts- und Nachhaltigkeitskriterien aus …</p>
+                    <ul class="list-unstyled text-secondary small mt-3">
+                        <li class="mb-2"><i class="bi bi-heart-pulse text-primary me-2"></i>Patientenwohl im Mittelpunkt</li>
+                        <li class="mb-2"><i class="bi bi-flower2 text-primary me-2"></i>Natürliche Wirkstoffe aus Cannabis</li>
+                        <li><i class="bi bi-award text-primary me-2"></i>Strenge Auswahl zertifizierter Hersteller</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="rounded-2xl overflow-hidden">
+                    <img src="https://images.pexels.com/photos/3676962/pexels-photo-3676962.jpeg"
+                         alt="Natürliche pharmazeutische Produkte" class="w-100 h-100 object-fit-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partner -->
+<section data-aos="fade-up" id="partners" class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-5">
+                <h2 class="section-title h1 mb-3">Partnerauswahl</h2>
+                <p class="mb-2"><strong>EU-/GMP- und GDP-zertifizierte Partner</strong></p>
+                <p>Wir achten sehr darauf, dass unsere Partner, die gleichen Ansichten in Bezug auf Qualität und Transparenz mit uns teilen und die dafür alle nötigen Zertifizierungen besitzen. Nur so können wir Ihnen eine sichere Wertschöpfungskette gewährleisten.</p>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-capsule-pill text-primary fs-3"></i><h3 class="h6 mt-2">Herstellung & Verarbeitung</h3></div></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-clipboard2-pulse text-primary fs-3"></i><h3 class="h6 mt-2">Analyse</h3></div></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-truck text-primary fs-3"></i><h3 class="h6 mt-2">Transport – Import & Export</h3></div></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-box-seam text-primary fs-3"></i><h3 class="h6 mt-2">Weiterverarbeitung – Primär/ Sekundär</h3></div></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-box2 fs-3 text-primary"></i><h3 class="h6 mt-2">Lagerung & Verpackung</h3></div></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card feature-card h-100 rounded-2xl"><div class="card-body"><i class="bi bi-graph-up-arrow text-primary fs-3"></i><h3 class="h6 mt-2">Vermarktung & Vertrieb</h3></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cannabis -->
+<section data-aos="fade-up" id="cannabis" class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h2 class="section-title h1 mb-3">Cannabis – eine therapeutische und medizinische Alternative</h2>
+                <p>Bei der Behandlung mit medizinischen Cannabisprodukten steht die Reduzierung von Schmerzen und Krankheitssymptomen im Mittelpunkt.</p>
+                <p><strong>Cannabis Sativa L. – die Nutz- und Heilpflanze</strong><br>Bereits um 8.000 v. Chr. wurde Hanf (Cannabis) in China als Nutz- und Heilpflanze kultiviert und ihre erste Anwendung zu medizinischen Zwecken vor ungefähr 5000 Jahren. Es kommen Inhaltsstoffe in allen Cannabispflanzen vor, aber nicht immer in der gleichen Menge oder auch gleichen Zusammensetzung. Es gibt drei große Gruppen von Inhaltsstoffen im Cannabis: Cannabinoide, Terpene und Flavonoide. Ende der 90er stellten Forschungen in Bezug auf das Zusammenspiel von Cannabinoiden und Terpenen einen weiteren interessanten Aspekt in diesem Zusammenhang dar.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="accordion" id="cannabisInfo">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="h-can1"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c-can1" aria-expanded="true" aria-controls="c-can1">Cannabinoide</button></h2>
+                        <div id="c-can1" class="accordion-collapse collapse show" aria-labelledby="h-can1" data-bs-parent="#cannabisInfo">
+                            <div class="accordion-body">
+                                Cannabinoide sind ein Sammelbegriff für alle Stoffe, die über die Cannabinoid Rezeptoren wirken. Bis heute wurden mehr als 100 solcher Cannabinoide in der Cannabispflanze nachgewiesen und extrahiert. Dabei ist interessant, dass Cannabinoide nicht nur in der Hanfpflanze vorkommen, sondern auch in manchen Pilzen und Bakterien. Von den bisher mehr als 100 verschiedenen Cannabinoiden sind vor allem THC, CBD, CBC und CBG die bekanntesten.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="h-can2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-can2" aria-expanded="false" aria-controls="c-can2">Terpene</button></h2>
+                        <div id="c-can2" class="accordion-collapse collapse" aria-labelledby="h-can2" data-bs-parent="#cannabisInfo">
+                            <div class="accordion-body">
+                                Terpene sind eine Gruppierung chemischer Verbindungen und kommen in einer Vielzahl von Pflanzen, Lebensmitteln und ätherischen Ölen vor. Die darin enthaltenen Terpene beeinflussen den Geruch, Geschmack und mitunter auch die Wirkung der jeweiligen Pflanze. Bei der Pflanzengattung „Cannabis“ kommen über 200 verschiedene Terpene vor und je nach Sorte und Wirkung sind verschiedene Terpene in unterschiedlichen Mengen vorhanden. Die Terpene werden – genauso wie die Cannabinoide – hauptsächlich in den Trichomen (Harzdrüsen) gebildet.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="h-can3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c-can3" aria-expanded="false" aria-controls="c-can3">Flavonoide</button></h2>
+                        <div id="c-can3" class="accordion-collapse collapse" aria-labelledby="h-can3" data-bs-parent="#cannabisInfo">
+                            <div class="accordion-body">
+                                Flavonoide sind in der Cannabispflanze für Geruch, Farbe und Geschmack mitverantwortlich und dienen den Pflanzen vor allem als Schutz vor UV-Strahlung. Flavonoide werden vor allem über die Nahrung, also über Obst und Gemüse, aufgenommen. Bisher sind rund 8.000 Flavonoide bekannt; viele sind noch nicht eingehend erforscht.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Qualität -->
+<section data-aos="fade-up" id="quality" class="py-5">
+    <div class="container">
+        <h2 class="section-title h1 mb-3">Qualität geht vor</h2>
+        <p><strong>EU-/GMP- und GDP-zertifizierte Qualität</strong></p>
+        <p>Unsere Produkte werden sich durch eine gleichbleibende Qualität auf höchstem Niveau auszeichnen. Unser Ziel ist es, eine große Vielfalt an Produkten anzubieten, um eine bessere Verfügbarkeit für die zu behandelnden Krankheitssymptome zu gewährleisten.</p>
+        <div class="row g-3 mt-2">
+            <div class="col-6 col-md-3"><div class="p-3 text-center rounded-2xl border"><i class="bi bi-patch-check fs-2"></i><div class="small mt-2">GDP</div></div></div>
+            <div class="col-6 col-md-3"><div class="p-3 text-center rounded-2xl border"><i class="bi bi-shield-lock fs-2"></i><div class="small mt-2">GMP</div></div></div>
+            <div class="col-6 col-md-3"><div class="p-3 text-center rounded-2xl border"><i class="bi bi-qr-code-scan fs-2"></i><div class="small mt-2">Serialisierung</div></div></div>
+            <div class="col-6 col-md-3"><div class="p-3 text-center rounded-2xl border"><i class="bi bi-clipboard2-pulse fs-2"></i><div class="small mt-2">QS & CAPA</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Kontakt -->
+<section data-aos="fade-up" id="contact" class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <h2 class="section-title h1">Kontakt & Anfragen</h2>
+                <p>Wir melden uns zeitnah mit den nächsten Schritten. Für eilige Fälle kontaktieren Sie uns bitte telefonisch.</p>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="btn btn-primary btn-lg rounded-circle d-inline-flex align-items-center justify-content-center" style="width:3rem;height:3rem"><i class="bi bi-telephone"></i></span>
+                    <div>
+                        <div class="fw-semibold">+49 176 32603217</div>
+                        <small class="text-secondary">Mo–Fr 08:00–18:00</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="btn btn-outline-primary btn-lg rounded-circle d-inline-flex align-items-center justify-content-center" style="width:3rem;height:3rem"><i class="bi bi-envelope"></i></span>
+                    <div>
+                        <a class="fw-semibold" href="mailto:info@cundm-arzneimittel.de">info@cundm-arzneimittel.de</a>
+                        <small class="text-secondary d-block">Wir antworten in der Regel am selben Werktag.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-white rounded-2xl border p-4 shadow-soft">
+                    <form class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fname" class="form-label">Vorname</label>
+                                <input id="fname" type="text" class="form-control" required>
+                                <div class="invalid-feedback">Bitte geben Sie Ihren Vornamen an.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lname" class="form-label">Nachname</label>
+                                <input id="lname" type="text" class="form-control" required>
+                                <div class="invalid-feedback">Bitte geben Sie Ihren Nachnamen an.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">E-Mail</label>
+                                <input id="email" type="email" class="form-control" required>
+                                <div class="invalid-feedback">Bitte geben Sie eine gültige E-Mail an.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="company" class="form-label">Unternehmen</label>
+                                <input id="company" type="text" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <label for="topic" class="form-label">Thema</label>
+                                <select id="topic" class="form-select" required>
+                                    <option value="" selected disabled>Bitte wählen…</option>
+                                    <option>Import/Beschaffung</option>
+                                    <option>Lagerung/Kühlkette</option>
+                                    <option>Herstellung/Umverpackung</option>
+                                    <option>Distribution/Export</option>
+                                    <option>Medizinalcannabis</option>
+                                    <option>Sonstiges</option>
+                                </select>
+                                <div class="invalid-feedback">Bitte wählen Sie ein Thema.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="msg" class="form-label">Nachricht</label>
+                                <textarea id="msg" class="form-control" rows="4" required placeholder="Wie können wir unterstützen?"></textarea>
+                                <div class="invalid-feedback">Bitte beschreiben Sie Ihr Anliegen.</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="privacy" required>
+                                    <label class="form-check-label" for="privacy">Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzhinweisen zu.</label>
+                                    <div class="invalid-feedback">Bitte bestätigen Sie die Datenschutzhinweise.</div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-grid d-sm-flex gap-2">
+                                <button class="btn btn-primary" type="submit"><i class="bi bi-send me-2"></i>Absenden</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-5">
+    <div class="container py-4">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <h5 class="mb-3">C&M – Spezialisierter Großhandel für Arzneimittel</h5>
+                <p class="small">Import, Lagerung, Herstellung, Vertrieb & Export – inklusive medizinischer Cannabisprodukte gemäß MedCanG.</p>
+            </div>
+            <div class="col-md-6 col-lg-2">
+                <h6 class="mb-3">Navigation</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#philosophy">Philosophie</a></li>
+                    <li><a href="#partners">Partner</a></li>
+                    <li><a href="#cannabis">Cannabis</a></li>
+                    <li><a href="#quality">Qualität</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <h6 class="mb-3">Rechtliches</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#">Impressum</a></li>
+                    <li><a href="#">Datenschutz</a></li>
+                    <li><a href="#">Lieferbedingungen</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <h6 class="mb-3">Kontakt</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-2"></i><a href="mailto:info@cundm-arzneimittel.de">info@cundm-arzneimittel.de</a></p>
+                <p class="small mb-0"><i class="bi bi-telephone me-2"></i><a href="tel:+4917632603217">+49 176 32603217</a></p>
+            </div>
+        </div>
+        <hr class="border-secondary-subtle my-4" />
+        <div class="d-flex justify-content-between align-items-center pb-3 small">
+            <span>© <span id="year"></span> C&M Spezialisierter Großhandel für Arzneimittel. Alle Rechte vorbehalten.</span>
+            <div class="d-flex gap-3">
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function(){
+        const nav = document.querySelector('.nav-glass');
+        const onScroll = () => {
+            const threshold = 40; // ab wann solid
+            if (window.scrollY > threshold) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive:true });
+    })();
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (()=>{const forms=document.querySelectorAll('.needs-validation');Array.from(forms).forEach(form=>{form.addEventListener('submit',e=>{if(!form.checkValidity()){e.preventDefault();e.stopPropagation();}form.classList.add('was-validated');});});})();
+</script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    // AOS initialisieren, wenn alles geladen ist
+    window.addEventListener('load', () => {
+        AOS.init({
+            duration: 700,                 // Animationsdauer (ms)
+            easing: 'ease-out',            // Timing
+            once: true,                    // nur beim ersten Scroll abspielen
+            offset: 80,                    // Trigger-Versatz in px
+            anchorPlacement: 'top-center', // Wo im Viewport der Trigger ist
+            // Barrierefreiheit: bei „Bewegung reduzieren“ automatisch deaktivieren
+            disable: function() {
+                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+        });
+    });
 </script>
 
-
+</body>
 </html>

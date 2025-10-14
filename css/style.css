@@ -1,0 +1,299 @@
+
+.topbar {
+    font-size: .9rem;
+    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,.25);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,.25);
+}
+.topbar a { color: inherit; text-decoration: none; }
+.topbar .bi { vertical-align: -0.125em; }
+
+/* --- Navbar (glasig, hell auf dunklem Bild) --- */
+.navbar-glass {
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,.30); /* Transparenz anpassen */
+    border-bottom: 1px solid rgba(255,255,255,.25);
+}
+.navbar-glass .nav-link {
+    color: rgba(255,255,255,.85);
+}
+.navbar-glass .nav-link:hover,
+.navbar-glass .nav-link:focus,
+.navbar-glass .nav-link.active {
+    color: #fff;
+}
+
+/* Dropdown bei großen Screens on-hover öffnen (optional) */
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+}
+
+/* Platz schaffen, weil Navbar fixiert ist */
+
+
+.bg-cm-primary {
+    background-color: #49732c;
+}
+.bg-cm-secondary {
+    background-color: #768f53;
+}
+
+.hero-background {
+    background-image: url("../assets/img/hero-bg-lab.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Vollbildhöhe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.philo-section{
+    position:relative;
+    background:
+            radial-gradient(1100px 600px at 0% 0%, rgba(142,207,104,.20), transparent 60%),
+            radial-gradient(900px 500px at 100% 20%, rgba(95,138,66,.16), transparent 60%),
+            linear-gradient(180deg, var(--primary-700), #0f1a0c 70%);
+}
+
+/* Glass Feature Card */
+.glass-feature{
+    border-radius: 1rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+    border: 1px solid rgba(255,255,255,.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.15);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+.glass-feature:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgba(0,0,0,.45);
+}
+
+/* Icon-Bubble (glasig + Verlauf) */
+.icon-glass{
+    width:72px; height:72px; margin-inline:auto; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), rgba(255,255,255,.12));
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 8px 18px rgba(0,0,0,.25),
+    0 0 24px rgba(142,207,104,.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* Textfarben auf dunklem Grund */
+.text-white-70{ color: rgba(255,255,255,.72) !important; }
+
+/* Vertical Steps Style */
+.steps-vertical {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 0;
+}
+
+.step-vertical {
+    display: flex;
+    position: relative;
+    padding: 1rem 0;
+}
+
+.step-vertical:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 60px;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.step-vertical-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 20px;
+    color: #6c757d;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.step-vertical-content {
+    padding-top: 0.5rem;
+}
+
+.step-vertical.active .step-vertical-icon {
+    background: #4361ee;
+    border-color: #4361ee;
+    color: white;
+    box-shadow: 0 0 0 5px rgba(67, 97, 238, 0.2);
+}
+
+.step-vertical.complete .step-vertical-icon {
+    background: #2ecc71;
+    border-color: #2ecc71;
+    color: white;
+}
+
+/* Interactive buttons */
+.controls {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: #4361ee;
+    color: white;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #3451c6;
+}
+
+.btn:disabled {
+    background: #dee2e6;
+    cursor: not-allowed;
+}
+
+/* Section-Hintergrund im Hero-Look */
+.canna-section{
+    position: relative;
+    background:
+            radial-gradient(1000px 600px at 0% 0%, rgba(142,207,104,.20), transparent 60%),
+            radial-gradient(800px 500px at 100% 20%, rgba(95,138,66,.16), transparent 60%),
+            linear-gradient(180deg, var(--primary-700), #0f1a0c 70%);
+}
+
+/* Glas-Tabs */
+.glass-tabs .nav-link{
+    color:#fff;
+    border:1px solid rgba(255,255,255,.25);
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding:.55rem 1rem;
+    box-shadow: 0 6px 14px rgba(0,0,0,.18);
+    transition: all .25s ease;
+}
+.glass-tabs .nav-link:hover{
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,.4);
+}
+.glass-tabs .nav-link.active{
+    color:#fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--primary-400), var(--primary));
+    box-shadow: 0 8px 22px rgba(72,114,44,.45);
+}
+
+/* Glas-Card fürs Tab-Content */
+.canna-card{
+    padding: 1.75rem;
+    border-radius: 1rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.15);
+}
+
+/* Bilder */
+.canna-img{
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+
+/* Typografie auf dunklem Hintergrund */
+.lead{ color: rgba(255,255,255,.7); }
+.text-white-75{ color: rgba(255,255,255,.85)!important; }
+
+/* kleine Helfer */
+@media (min-width: 992px){
+    .glass-tabs .nav-link{ padding:.6rem 1.1rem; }
+}
+
+:root{
+    /* Palette auf Basis #48722c, etwas aufgehellt/abgedunkelt für Tiefe */
+    --primary-700:#2e4a1b;
+    --primary-600:#3f6526;
+    --primary:#48722c;         /* deine Primärfarbe */
+    --primary-400:#5f8a42;     /* aufgehellt */
+    --accent:#8ecf68;          /* frisches Akzentgrün */
+}
+
+.py-6{padding-top:4rem;padding-bottom:4rem}
+.py-7{padding-top:5rem;padding-bottom:5rem}
+
+.quality-section{
+    /* dunkler Green-Gradient wie in der Hero, sorgt für Kontrast zur Glas-Card */
+    background:
+            radial-gradient(1200px 600px at 10% -10%, rgba(142,207,104,.18), transparent 60%),
+            radial-gradient(900px 500px at 100% 20%, rgba(95,138,66,.15), transparent 60%),
+            linear-gradient(180deg, var(--primary-700), #0f1a0c 70%);
+}
+
+.glass-card{
+    border-radius: 1.25rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+    border: 1px solid rgba(255,255,255,.22);
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.accent-dot{
+    width: .9rem; height: .9rem; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+    box-shadow: 0 0 18px rgba(142,207,104,.8);
+}
+
+.badge-glass{
+    --bdg: rgba(255,255,255,.14);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.28);
+    background: linear-gradient(180deg, var(--bdg), rgba(255,255,255,.06));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 2rem;
+    padding:.35rem .8rem;
+    font-weight:600;
+    letter-spacing:.3px;
+}
+
+.text-white-75{color:rgba(255,255,255,.85)!important}
+
+/* weiche Akzent-Flecken im Hintergrund für Tiefe */
+.bg-accent-blob,
+.bg-accent-blob-2{
+    position:absolute; z-index:0; filter: blur(40px); opacity:.25; pointer-events:none;
+    background: radial-gradient(closest-side, var(--primary-400), transparent 70%);
+}
+.bg-accent-blob{ width:420px; height:420px; left:-120px; bottom:-80px; }
+.bg-accent-blob-2{ width:520px; height:520px; right:-160px; top:-120px; background: radial-gradient(closest-side, var(--accent), transparent 70%); }
+
+/* leichte Hover-Reaktion auf großen Screens */
+@media (min-width: 992px){
+    .glass-card:hover{ transform: translateY(-2px); transition: .25s ease; }
+}
